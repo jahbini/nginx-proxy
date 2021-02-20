@@ -36,6 +36,8 @@ VOLUME ["/etc/nginx/certs", "/etc/nginx/dhparam"]
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["forego", "start", "-r"]
 LABEL maintainer="james Hinds jim@nia.edu.kh"
+RUN rm /etc/nginx/conf.d/*
+COPY ./global-nginx.conf /etc/nginx/nginx.conf
 RUN apt-get update && apt-get install -y procps vim  && rm -rf /var/lib/apt/lists/
-CMD bash ./runforego.sh
 COPY . /app/
+CMD bash ./runforego.sh
